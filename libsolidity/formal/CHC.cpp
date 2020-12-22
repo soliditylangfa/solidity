@@ -476,7 +476,7 @@ void CHC::endVisit(FunctionCall const& _funCall)
 		break;
 	}
 
-	createReturnedExpressions(_funCall);
+	createReturnedExpressions(_funCall, m_currentContract);
 }
 
 void CHC::endVisit(Break const& _break)
@@ -580,7 +580,7 @@ void CHC::internalFunctionCall(FunctionCall const& _funCall)
 {
 	solAssert(m_currentContract, "");
 
-	auto const* function = functionCallToDefinition(_funCall);
+	auto const* function = functionCallToDefinition(_funCall, m_currentContract);
 	if (function)
 	{
 		if (m_currentFunction && !m_currentFunction->isConstructor())
@@ -623,7 +623,7 @@ void CHC::externalFunctionCall(FunctionCall const& _funCall)
 	auto kind = funType.kind();
 	solAssert(kind == FunctionType::Kind::External || kind == FunctionType::Kind::BareStaticCall, "");
 
-	auto const* function = functionCallToDefinition(_funCall);
+	auto const* function = functionCallToDefinition(_funCall, m_currentContract);
 	if (!function)
 		return;
 
@@ -657,7 +657,7 @@ void CHC::externalFunctionCallToTrustedCode(FunctionCall const& _funCall)
 	auto kind = funType.kind();
 	solAssert(kind == FunctionType::Kind::External || kind == FunctionType::Kind::BareStaticCall, "");
 
-	auto const* function = functionCallToDefinition(_funCall);
+	auto const* function = functionCallToDefinition(_funCall, m_currentContract);
 	if (!function)
 		return;
 
@@ -1141,7 +1141,7 @@ smtutil::Expression CHC::predicate(FunctionCall const& _funCall)
 	auto kind = funType.kind();
 	solAssert(kind == FunctionType::Kind::Internal || kind == FunctionType::Kind::External || kind == FunctionType::Kind::BareStaticCall, "");
 
-	auto const* function = functionCallToDefinition(_funCall);
+	auto const* function = functionCallToDefinition(_funCall, m_currentContract);
 	if (!function)
 		return smtutil::Expression(true);
 
@@ -1170,7 +1170,7 @@ smtutil::Expression CHC::predicate(FunctionCall const& _funCall)
 	bool usesStaticCall = function->stateMutability() == StateMutability::Pure || function->stateMutability() == StateMutability::View;
 
 	args += currentStateVariables(*calledContract);
-	args += symbolicArguments(_funCall);
+	args += symbolicArguments(_funCall, m_currentContract);
 	if (!calledContract->isLibrary() && !usesStaticCall)
 	{
 		state().newState();
