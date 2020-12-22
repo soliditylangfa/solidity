@@ -75,7 +75,11 @@ public:
 	/// @returns a function name that copies string literal to memory
 	/// and returns pointer to memory array containing it
 	/// signature: () -> memPtr
-	std::string copyToMemoryLiteralFunction(std::string const& _literal);
+	std::string copyLiteralToMemoryFunction(std::string const& _literal);
+
+	/// @returns a function name that stores string literal to specific location in memory
+	/// signature: (memPtr) ->
+	std::string storeLiteralToMemoryFunction(std::string const& _literal);
 
 	// @returns the name of a function that has the equivalent logic of an
 	// `assert` or `require` call.
