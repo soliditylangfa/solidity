@@ -89,7 +89,7 @@ Community volunteers help translate this documentation into several languages.
 They have varying degrees of completeness and up-to-dateness. The English
 version stands as a reference.
 
-* `French <https://solidity-fr.readthedocs.io>`_ (in progress)
+* `فرانسوی <https://solidity-fr.readthedocs.io>`_ (در حال انجام)
 * `Italian <https://github.com/damianoazzolini/solidity>`_ (in progress)
 * `Japanese <https://solidity-jp.readthedocs.io>`_
 * `Korean <https://solidity-kr.readthedocs.io>`_ (in progress)
