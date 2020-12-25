@@ -1,4 +1,4 @@
-Solidity
+سالیدیتی
 ========
 
 .. image:: logo.svg
